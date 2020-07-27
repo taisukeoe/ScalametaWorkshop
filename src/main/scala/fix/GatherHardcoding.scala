@@ -7,10 +7,10 @@ import java.nio.file.Files
 import metaconfig.Configured
 import scalafix.v1._
 
-import scala.collection.mutable.ArrayBuffer
 import scala.meta._
-
 import com.taisukeoe.GatherHardcodedValues
+
+import scala.collection.mutable.ListBuffer
 
 class GatherHardcoding(config: GatherHardcodingConfig) extends SyntacticRule("GatherHardcoding") {
 
@@ -18,7 +18,7 @@ class GatherHardcoding(config: GatherHardcodingConfig) extends SyntacticRule("Ga
 
   lazy val ghv = new GatherHardcodedValues(config.pkg, config.obj)
 
-  private val queue = new ArrayBuffer[(Term.Name, Lit)]()
+  private val queue = new ListBuffer[(Term.Name, Lit)]()
   override def withConfiguration(config: Configuration): Configured[Rule] = {
     config.conf.getOrElse("GatherHardcoding")(GatherHardcodingConfig.default).map(new GatherHardcoding(_))
   }

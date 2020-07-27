@@ -14,6 +14,7 @@ inThisBuild(
 lazy val workshop = project
   .in(file("."))
   .settings(
+    moduleName := "gather-hardcoding",
     libraryDependencies ++= Seq(
       "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion,
       "org.scalameta" %% "munit" % "0.7.9" % Test
@@ -21,7 +22,7 @@ lazy val workshop = project
     testFrameworks += new TestFramework("munit.Framework")
   )
   .settings(
-    //scalafix rule test settings in step4
+    //scalafix rule test settings in step5
     libraryDependencies += "ch.epfl.scala" % "scalafix-testkit" % V.scalafixVersion % Test cross CrossVersion.full,
     compile.in(Compile) :=
       compile.in(Compile).dependsOn(compile.in(input, Compile)).value,
