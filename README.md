@@ -83,6 +83,12 @@ import scala.meta._
 sbt:workshop > testOnly step5.* 
 ```
 
+Since GatherHardcoding rule will generate a source file under output/target, you can confirm if generated source is OK by:
+
+```sbtshell
+sbt:wokrshop > output/compile
+```
+
 # STEP6: Run your own Scalafix rule against your Scala project!
 
 ```sbtshell
@@ -100,7 +106,16 @@ addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.9.19")
 And then, running your Scalafix rule by the following command. 
 
 ```sbtshell
-sbt:YourProject > scalafix dependency:GatherHardcoding@com.taisukeoe:workshop:0.1-SNAPSHOT --check
+sbt:YourProject > scalafix dependency:GatherHardcoding@com.taisukeoe:gather-hardcoding:0.1-SNAPSHOT --check
 ```
 
 See the result and generated Constants source at the base directory, and think through further improvements.
+
+# EXTRA STEPS: Improve your rule
+
+There are many opportunities to improve. For example:
+
+- Consider capturing literals in infix notation.
+- Consider choosing better names for Constant fields. (Current naming is deadly simple and collides frequently :( )
+- Consider using [GatherHardcodingConfig](src/main/scala/fix/GatherHardcodingConfig.scala) via `.scalafix.conf` to apply your Scala project.
+- Consider changing your rule to SemanticRule, and using richer tree pattern matching by [SymbolMatcher](https://scalacenter.github.io/scalafix/docs/developers/symbol-matcher.html))
